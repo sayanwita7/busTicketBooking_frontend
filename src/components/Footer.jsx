@@ -3,22 +3,30 @@ import { Link } from 'react-router-dom';
 import Logo from './Logo.jsx';
 function Footer() {
   return (
-    <section className="bg-[#131313] py-6 border-t border-purple-300 shadow-inner">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex flex-wrap justify-between">
-          <div className="w-full md:w-1/3 lg:w-1/3 text-purple-900">
-            <div className="mb-3">
-              <Logo width="100px" />
-            </div>
-          </div>
-
-        {/* Divider */}
-        <div className="mt-8 border-t border-purple-300 pt-4 text-center text-sm text-purple-600">
-          💖 Making Bus Booking Easier!
+    <div className="bg-[#0d071a] text-white py-4 px-3 mt-16">
+      <div className="container mx-auto flex flex-wrap items-center justify-between">
+        <div className="w-full md:w-1/2 md:text-center md:mb-0 mb-8">
+          <p className="text-xs text-gray-400 md:text-sm">
+            Copyright 2025 &copy; All Rights Reserved
+          </p>
+        </div>
+        <div className="w-full md:w-1/2 md:text-center md:mb-0 mb-8">
+          <ul className="list-reset flex justify-center flex-wrap text-xs md:text-sm gap-3">
+            <li>
+              <a href="#" className="text-gray-400 hover:text-white">
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="#" className="text-gray-400 hover:text-white">
+                Terms of Use
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      </div>
-    </section>
+    </div>
+    
   );
 }
 

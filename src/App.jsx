@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Header from './components/Header'
 import Footer from './components/Footer'
 import { Outlet } from 'react-router-dom'
+import Header from './components/Header'
 
 function App() {
   return (
-    <div className = 'min-h-screen w-full flex flex-wrap content-between bg-[#131313]'>
-      <div className='w-full block'>
+    <div className = ' w-full bg-gradient-to-b from-[#121212] to-purple'>
         <Header />
-        <main> <Outlet /> </main>
+        <main className='pt-16'> <Outlet /> </main>
         <Footer />
-      </div>
     </div>
   )
 }

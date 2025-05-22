@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Buses from './pages/Buses.jsx'
+import BusDisplayComponent from './pages/BusLayout.jsx'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/buses",
         element: <Buses />,
+      },
+      {
+        path: "/buses-seats",
+        element: <BusDisplayComponent />,
       }
     ]
   }
