@@ -1,23 +1,29 @@
 import React from 'react';
+import { IoTicketOutline } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
 function BusCard({ busNumber, busName, busPrice, busCapacity, busDepart, busDuration, busDistance, start, stop}) {
+  const navigate = useNavigate();
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300">
-      <h2 className="text-2xl font-bold text-blue-700 mb-2">{busName}</h2>
-      <p className="text-sm text-gray-500 mb-4">Bus No: {busNumber}</p>
+    <div className="bg-gradient-to-b from-white to-fuchsia-950 w-full max-w-md mx-auto rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300">
+      <h2 className="text-2xl font-bold text-purple-700 mb-2">{busName}</h2>
+      <p className="text-sm text-white mb-4">BUS NUMBER: {busNumber}</p>
 
-      <div className="flex justify-between items-center text-gray-700 mb-4">
+      <div className="flex justify-between items-center mb-4">
         <div>
           <p className="font-semibold">From:</p>
           <p>{start}</p>
         </div>
+        <button onClick = {() => navigate("/buses-seats")} className=" flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-md text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Book Seat <IoTicketOutline />
+        </button>
         <div>
           <p className="font-semibold">To:</p>
           <p>{stop}</p>
         </div>
       </div>
 
-      <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
+      <div className="flex justify-between items-center text-sm text-white mb-4">
         <div>
           <p className="font-medium">Departure:</p>
           <p>{busDepart}</p>

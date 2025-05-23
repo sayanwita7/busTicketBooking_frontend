@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import Container from './Container.jsx';
+
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Container from './Container.jsx';
-import Logo from './Logo.jsx';
+
 import { FaBusAlt } from "react-icons/fa";
+import { CgLogIn } from "react-icons/cg";
+
+import Logout from './Logout.jsx';
+
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const authStatus = useSelector((state) => state.auth.status)
   const navigate = useNavigate()
   const navItems = [
         {
@@ -16,12 +23,12 @@ const Header = () => {
         {
             name: 'Login',
             slug: "/login",
-            active: true,
+            active: !authStatus,
         },
         {
             name: 'Register',
             slug: "/register",
-            active: true
+            active: !authStatus
         },
     ]
     
@@ -58,9 +65,11 @@ const Header = () => {
             {/* Right Side Buttons */}
             <div className="flex items-center">
               <div className="ml-4 flex items-center">
-                <button className="bg-indigo-600 px-4 py-2 rounded-md text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Account
-                </button>
+                {authStatus ? (<Logout/>): 
+                (<button onClick={() => navigate("/login")}
+                className="flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-md text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  Sign In <CgLogIn />
+                </button>)}
               </div>
             </div>
           </div>

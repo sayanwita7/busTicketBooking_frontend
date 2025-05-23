@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {useDispatch} from "react-redux"
+import {login as authLogin} from '../store/authSlice.js'
 
 function LoginComponent() {
-   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    });
-    const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+   email: "",
+   password: "",
+  });
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,9 +28,14 @@ function LoginComponent() {
         email: formData.email,
         password: formData.password,
       });
-
+      const userId = response.data.userId;
+      if (userId) {
+            dispatch (authLogin(userId));
+            navigate("/")
+      }
       console.log(response.data);
       alert("User logged in successfully!");
+
     } catch (error) {
       console.error("Logging error:", error);
       alert("Logging failed.");
