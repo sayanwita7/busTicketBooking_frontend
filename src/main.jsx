@@ -12,6 +12,7 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Buses from './pages/Buses.jsx'
 import BusDisplayComponent from './pages/BusLayout.jsx'
+import TicketDisplayComponent from './pages/CurrentTicket.jsx'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/buses-seats",
         element: <BusDisplayComponent />,
+      },
+      {
+        path: "/tickets",
+        element: <TicketDisplayComponent />,
       }
     ]
   }

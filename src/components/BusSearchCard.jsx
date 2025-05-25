@@ -2,6 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import { booking } from '../store/bookingSlice';
+
 import { FaBus, FaExchangeAlt, FaCalendarAlt } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import CustomDatePicker from './DatePicker';
@@ -12,8 +15,10 @@ function BusSearchCard() {
     const [options, setOptions]= useState(["KOLKATA", "HALDIA"])
     const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(dayjs());
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        // console.log(selectedDate
         axios.get(import.meta.env.VITE_FETCH_STOPS_URL)
           .then(response => {
             setOptions(response.data);
@@ -21,7 +26,7 @@ function BusSearchCard() {
           .catch(error => {
              console.log("Stops not found!");
           });
-      }, []);
+      }, [to, from, selectedDate]);
 
     const swap = () => {
         setFrom(to)
@@ -31,7 +36,6 @@ function BusSearchCard() {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-
       if (from == to) {
         alert("Origin and destination must be different!");
         return;
@@ -42,8 +46,11 @@ function BusSearchCard() {
           start: from,
           stop: to
         });
-        console.log(response)
-         navigate('/buses', { state: { buses: response.data } });
+        //console.log(response)
+        const journeyDate= dayjs(selectedDate).format("YYYY-MM-DD");
+        //console.log(journeyDate)
+        dispatch(booking({journeyDate}))
+        navigate('/buses', { state: { buses: response.data } });
                 
       } catch (error) {
         console.error("Error finding bus:", error);

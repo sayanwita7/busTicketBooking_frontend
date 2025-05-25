@@ -11,6 +11,7 @@ export default function CustomDatePicker({ date, setDate }) {
         label="Select date"
         value={date}
         onChange={(newValue) => setDate(newValue)}
+        minDate={dayjs()}
         sx={{
           backgroundColor: 'white',
           borderRadius: '8px',

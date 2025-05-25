@@ -1,9 +1,31 @@
 import React from 'react';
 import { IoTicketOutline } from "react-icons/io5";
+
+import {useDispatch} from "react-redux"
+import { currentBus } from "../store/busSlice.js";
+import { booking } from '../store/bookingSlice.js';
 import { useNavigate } from 'react-router-dom';
 
-function BusCard({ busNumber, busName, busPrice, busCapacity, busDepart, busDuration, busDistance, start, stop}) {
+function BusCard({ busId, busNumber, busName, busPrice, busCapacity, busDepart, busDuration, busDistance, start, stop}) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const selectBus = async ()=> {
+      dispatch(currentBus({
+        busData: {
+          busId,
+          busCapacity,
+          busDepart,
+          busPrice,
+          start,
+          stop,
+          busName,
+          busNumber,
+        }
+      }));
+      navigate("/buses-seats")
+  }
+  
   return (
     <div className="bg-gradient-to-b from-white to-fuchsia-950 w-full max-w-md mx-auto rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300">
       <h2 className="text-2xl font-bold text-purple-700 mb-2">{busName}</h2>
@@ -14,7 +36,7 @@ function BusCard({ busNumber, busName, busPrice, busCapacity, busDepart, busDura
           <p className="font-semibold">From:</p>
           <p>{start}</p>
         </div>
-        <button onClick = {() => navigate("/buses-seats")} className=" flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-md text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <button onClick = {selectBus} className=" flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-md text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Book Seat <IoTicketOutline />
         </button>
         <div>

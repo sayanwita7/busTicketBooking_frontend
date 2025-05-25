@@ -23,13 +23,13 @@ function Logout() {
             alert("Error logging out...");
         }
     }
-  return (
-    <button
-    className='flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-md text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-    onClick={logoutHandler}>
-        Logout <IoIosLogOut /> 
-    </button>
-  )
+    return (
+        <button
+        className='flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-md text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+        onClick={logoutHandler}>
+            Logout <IoIosLogOut /> 
+        </button>
+    )
 }
 
 export default Logout

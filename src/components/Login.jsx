@@ -30,11 +30,11 @@ function LoginComponent() {
       });
       const userId = response.data.userId;
       if (userId) {
-            dispatch (authLogin(userId));
+            dispatch (authLogin({userData: {userId}}));
             navigate("/")
       }
-      console.log(response.data);
-      alert("User logged in successfully!");
+      //console.log(response.data);
+      //alert("User logged in successfully!");
 
     } catch (error) {
       console.error("Logging error:", error);
