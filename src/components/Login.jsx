@@ -1,16 +1,17 @@
-import React, {useState} from 'react'
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {useDispatch} from "react-redux"
-import {login as authLogin} from '../store/authSlice.js'
+import { useState } from 'react'
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { login as authLogin } from '../store/authSlice.js'
 
 function LoginComponent() {
   const [formData, setFormData] = useState({
-   email: "",
-   password: "",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +23,6 @@ function LoginComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(import.meta.env.VITE_LOGIN_URL, {
         email: formData.email,
@@ -31,16 +31,13 @@ function LoginComponent() {
       const userId = response.data.userId;
       if (userId) {
             dispatch (authLogin({userData: {userId}}));
-            navigate(-1);
+            navigate(location.state?.from || "/", { replace: true });
       }
       else{
         alert("Invalid login credentials.");
-        navigate("/login");
       }
     } catch (error) {
-      console.error("Logging error:", error);
       alert("Logging failed.");
-      navigate("/login");
     }
   };
       
@@ -84,8 +81,7 @@ function LoginComponent() {
             </button>
 
             <div className="mt-3 text-sm flex justify-between text-white">
-              <a onClick={() => navigate("/register")} className="cursor-pointer text-[#4a90e2] hover:underline">REGISTER</a>
-              <a href="#" className="text-[#4a90e2] hover:underline">FORGOT PASSWORD</a>
+              <a onClick={() => navigate("/register")} className="cursor-pointer text-[#4a90e2] hover:underline">Not Signed Up? Register!</a>
             </div>
           </div>
         </div>

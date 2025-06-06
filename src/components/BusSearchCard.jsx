@@ -1,24 +1,21 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
 import axios from "axios";
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useDispatch} from "react-redux";
-import { booking } from '../store/bookingSlice';
-
+import { useDispatch } from "react-redux";
 import { FaBus, FaExchangeAlt, FaCalendarAlt } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import CustomDatePicker from './DatePicker';
+import { booking } from '../store/bookingSlice';
 
 function BusSearchCard() {
     const [from, setFrom] = useState("KOLKATA")
     const [to, setTo] = useState("HALDIA")
     const [options, setOptions]= useState(["KOLKATA", "HALDIA"])
-    const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(dayjs());
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // console.log(selectedDate
         axios.get(import.meta.env.VITE_FETCH_STOPS_URL)
           .then(response => {
             setOptions(response.data);
@@ -33,27 +30,25 @@ function BusSearchCard() {
         setTo(from)
     }
 
-
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (from == to) {
         alert("Origin and destination must be different!");
         return;
       }
-
       try {
         const response = await axios.post(import.meta.env.VITE_FIND_BUS_URL, {
           start: from,
           stop: to
         });
-        //console.log(response)
+        if (response.data.length==0){
+          alert( error.response?.data?.error || "Bus not available for the selected route!"); 
+        }
         const journeyDate= dayjs(selectedDate).format("YYYY-MM-DD");
-        //console.log(journeyDate)
         dispatch(booking({journeyDate}))
-        navigate('/buses', { state: { buses: response.data } });
-                
+        navigate('/buses', { state: { buses: response.data } });        
       } catch (error) {
-        console.error("Error finding bus:", error);
+        alert( error.response?.data?.error || "Bus not available for the selected route!"); 
       }
     };
 

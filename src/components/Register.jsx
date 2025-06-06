@@ -35,8 +35,6 @@ function RegisterComponent() {
         password: formData.password,
         userType: "CUSTOMER"
       });
-
-      //console.log(response.data);
       alert("User registered successfully!");
       navigate(-1);
     } catch (error) {

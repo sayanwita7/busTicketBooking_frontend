@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
-import Container from './Container.jsx';
-
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
-import { FaBusAlt } from "react-icons/fa";
-import { CgLogIn } from "react-icons/cg";
-
-import Logout from './Logout.jsx';
-
+import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FaBusAlt} from "react-icons/fa";
+import { CgLogIn } from "react-icons/cg";
+import Logout from './Logout.jsx';
 
 const Header = () => {
   const authStatus = useSelector((state) => state.auth.status)

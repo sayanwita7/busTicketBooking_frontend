@@ -1,13 +1,8 @@
-import React, {useEffect, useState} from "react";
 import axios from "axios";
-
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux"
-import { currentBus } from "../store/busSlice.js";
-import { booking, cancelletion } from "../store/bookingSlice.js";
-import { login } from "../store/authSlice.js";
-
-import { MdOutlineChair } from "react-icons/md";
+import {useSelector} from "react-redux"
+import { MdOutlineChair} from "react-icons/md";
 import { GiSteeringWheel } from "react-icons/gi";
 
 export const Seat = ({isSelected, isBooked, onClick}) => {
@@ -23,15 +18,10 @@ export const BusSeatLayout = () => {
     const totalSeats = 47;
     const [selectedSeats, setSelectedSeats] = useState([])
     const [bookedSeats, setBookedSeats] = useState([])
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const price = selectedSeats.length*busData.busPrice;
         
     const seatsBooked = async() =>{
-        // console.log("Journey date seatsBooked(): ",bookingData.journeyDate)
-        // console.log("busData: ", busData)
-        // console.log("bookingData: ", bookingData)
-        // console.log("userData: ", userData)
         try {
            const seats = await axios.post(import.meta.env.VITE_FIND_SEAT_URL, {
                 busId: busData.busId,
@@ -44,8 +34,7 @@ export const BusSeatLayout = () => {
     }
 
     const bookSeat = async () => {
-        // console.log("Booking Data bookSeat(): ",bookingData)
-        // console.log("Journey date bookSeat(): ",bookingData.journeyDate)
+        alert ("Proceed with Seat Booking?")
         const bookedTickets = [];
         for (let seat of selectedSeats) {
             const res = await axios.post(import.meta.env.VITE_BOOK_SEAT_URL, {
@@ -62,7 +51,7 @@ export const BusSeatLayout = () => {
             bookedTickets.push(ticketInfo);
         }
         setSelectedSeats([])
-        navigate("/tickets", { state: bookedTickets });
+        navigate('/payment', { state: { price: price} });
     }
 
     const handleSeatClick = (seatNumber) => {
@@ -103,8 +92,13 @@ export const BusSeatLayout = () => {
     }
 
     useEffect(() => {
+        if (userData===null){
+                alert ("Kindly Login First!")
+                navigate('/login')
+            }
         seatsBooked();
     },[]);
+
     return (
         <div className='select-none flex flex-col md:flex-row items-center justify-center'>
             <div className= 'space-y-5'> 
@@ -182,4 +176,3 @@ export const BusSeatLayout = () => {
         </div>
     )
 }
-// export default {Seat, BusSeatLayout};

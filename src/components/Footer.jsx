@@ -1,6 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Logo from './Logo.jsx';
 function Footer() {
   return (
     <div className="bg-[#0d071a] text-white py-4 px-3 mt-16">

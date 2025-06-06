@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
 import axios from "axios";
-import { IoTicketOutline } from "react-icons/io5";
-import { useState } from 'react';
-import {useDispatch} from "react-redux"
-import { currentBus } from "../store/busSlice.js";
-import { booking } from '../store/bookingSlice.js';
+import React, { useState, useEffect } from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { IoTicketOutline } from "react-icons/io5";
+import { currentBus } from "../store/busSlice.js";
 
 function BusCard({ busId, busNumber, busName, busPrice, busCapacity, busDepart, busDuration, busDistance, start, stop}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const bookingData = useSelector((state) => state.booking.bookingData);
   const [bookedSeats, setBookedSeats] = useState([])
+  
   const seatsBooked = async() =>{
         try {
            const seats = await axios.post(import.meta.env.VITE_FIND_SEAT_URL, {
@@ -42,7 +40,6 @@ function BusCard({ busId, busNumber, busName, busPrice, busCapacity, busDepart, 
   }
 
   useEffect(() => {
-    //console.log(bookingData)
     seatsBooked()
   },[])
   

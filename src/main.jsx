@@ -1,5 +1,3 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import './index.css'
@@ -12,8 +10,9 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Buses from './pages/Buses.jsx'
 import BusDisplayComponent from './pages/BusLayout.jsx'
-import TicketDisplayComponent from './pages/CurrentTicket.jsx'
 import AllUserTicket from './pages/UserTickets.jsx'
+import Payment from './pages/Payment.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -40,13 +39,17 @@ const router = createBrowserRouter([
         path: "/buses-seats",
         element: <BusDisplayComponent />,
       },
-      {
-        path: "/tickets",
-        element: <TicketDisplayComponent />,
-      },
+      // {
+      //   path: "/tickets",
+      //   element: <TicketDisplayComponent />,
+      // },
       {
         path: "/all-user-tickets",
         element: <AllUserTicket />,
+      },
+      {
+        path: "/payment",
+        element: <Payment />,
       }
     ]
   }

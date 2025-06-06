@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import BusSearchCard from './BusSearchCard.jsx';
+
 function HomeComponent() {
     return (
         <>
