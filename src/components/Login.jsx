@@ -31,14 +31,16 @@ function LoginComponent() {
       const userId = response.data.userId;
       if (userId) {
             dispatch (authLogin({userData: {userId}}));
-            navigate("/")
+            navigate(-1);
       }
-      //console.log(response.data);
-      //alert("User logged in successfully!");
-
+      else{
+        alert("Invalid login credentials.");
+        navigate("/login");
+      }
     } catch (error) {
       console.error("Logging error:", error);
       alert("Logging failed.");
+      navigate("/login");
     }
   };
       

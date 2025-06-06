@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from "axios";
 import { IoTicketOutline } from "react-icons/io5";
-
+import { useState } from 'react';
 import {useDispatch} from "react-redux"
 import { currentBus } from "../store/busSlice.js";
 import { booking } from '../store/bookingSlice.js';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function BusCard({ busId, busNumber, busName, busPrice, busCapacity, busDepart, busDuration, busDistance, start, stop}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const bookingData = useSelector((state) => state.booking.bookingData);
+  const [bookedSeats, setBookedSeats] = useState([])
+  const seatsBooked = async() =>{
+        try {
+           const seats = await axios.post(import.meta.env.VITE_FIND_SEAT_URL, {
+                busId: busId,
+                journeyDate: bookingData.journeyDate,
+           });
+           setBookedSeats(seats.data.length);
+        } catch (error) {
+           console.error("Error fetching booked seats:", error);
+        }
+    }
 
   const selectBus = async ()=> {
       dispatch(currentBus({
@@ -25,9 +40,14 @@ function BusCard({ busId, busNumber, busName, busPrice, busCapacity, busDepart, 
       }));
       navigate("/buses-seats")
   }
+
+  useEffect(() => {
+    //console.log(bookingData)
+    seatsBooked()
+  },[])
   
   return (
-    <div className="bg-gradient-to-b from-white to-fuchsia-950 w-full max-w-md mx-auto rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300">
+    <div className="select-none bg-gradient-to-b from-white to-fuchsia-950 w-full max-w-md mx-auto rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300">
       <h2 className="text-2xl font-bold text-purple-700 mb-2">{busName}</h2>
       <p className="text-sm text-white mb-4">BUS NUMBER: {busNumber}</p>
 
@@ -65,7 +85,7 @@ function BusCard({ busId, busNumber, busName, busPrice, busCapacity, busDepart, 
       </div>
 
       <p className={`text-sm font-semibold ${busCapacity > 0 ? 'text-green-600' : 'text-red-600'}`}>
-        {busCapacity > 0 ? `${busCapacity} seats available` : 'No seats available'}
+        {busCapacity > 0 ? `${busCapacity-bookedSeats} seats available` : 'No seats available'}
       </p>
     </div>
   );

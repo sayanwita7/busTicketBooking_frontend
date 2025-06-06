@@ -36,8 +36,9 @@ function RegisterComponent() {
         userType: "CUSTOMER"
       });
 
-      console.log(response.data);
+      //console.log(response.data);
       alert("User registered successfully!");
+      navigate(-1);
     } catch (error) {
       console.error("Registration error:", error);
       alert("Registration failed.");

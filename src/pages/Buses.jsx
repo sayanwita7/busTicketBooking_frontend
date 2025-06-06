@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import BusCard from '../components/BusCard.jsx';
 import BusesComponent from '../components/Buses.jsx';
 import BusSearchCard from '../components/BusSearchCard.jsx'
+
 function Buses() {
   const location = useLocation();
   const buses = location.state?.buses || [];

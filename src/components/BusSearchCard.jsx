@@ -58,7 +58,7 @@ function BusSearchCard() {
     };
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 px-4">
+    <div className="select-none max-w-6xl mx-auto mt-10 px-4">
       <div className="bg-white rounded-full shadow-lg flex overflow-hidden">
         {/* FROM Section */}
         <div className="flex items-center gap-3 px-6 py-6 border-r w-full sm:w-[25%]">

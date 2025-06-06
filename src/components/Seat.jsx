@@ -9,7 +9,6 @@ import { login } from "../store/authSlice.js";
 
 import { MdOutlineChair } from "react-icons/md";
 import { GiSteeringWheel } from "react-icons/gi";
-// import { GiBusDoors } from "react-icons/gi";
 
 export const Seat = ({isSelected, isBooked, onClick}) => {
     return (
@@ -29,10 +28,10 @@ export const BusSeatLayout = () => {
     const price = selectedSeats.length*busData.busPrice;
         
     const seatsBooked = async() =>{
-        console.log("Journey date seatsBooked(): ",bookingData.journeyDate)
-        console.log("busData: ", busData)
-        console.log("bookingData: ", bookingData)
-        console.log("userData: ", userData)
+        // console.log("Journey date seatsBooked(): ",bookingData.journeyDate)
+        // console.log("busData: ", busData)
+        // console.log("bookingData: ", bookingData)
+        // console.log("userData: ", userData)
         try {
            const seats = await axios.post(import.meta.env.VITE_FIND_SEAT_URL, {
                 busId: busData.busId,
@@ -45,8 +44,8 @@ export const BusSeatLayout = () => {
     }
 
     const bookSeat = async () => {
-        console.log("Booking Data bookSeat(): ",bookingData)
-        console.log("Journey date bookSeat(): ",bookingData.journeyDate)
+        // console.log("Booking Data bookSeat(): ",bookingData)
+        // console.log("Journey date bookSeat(): ",bookingData.journeyDate)
         const bookedTickets = [];
         for (let seat of selectedSeats) {
             const res = await axios.post(import.meta.env.VITE_BOOK_SEAT_URL, {
@@ -107,7 +106,7 @@ export const BusSeatLayout = () => {
         seatsBooked();
     },[]);
     return (
-        <div className='flex flex-col md:flex-row items-center justify-center'>
+        <div className='select-none flex flex-col md:flex-row items-center justify-center'>
             <div className= 'space-y-5'> 
                 <div>
                     <h2 className="text-xl text-neutral-800 dark:text-neutral-100 font-medium"> {busData.busName}: {busData.busDepart}</h2>

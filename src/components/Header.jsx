@@ -30,12 +30,17 @@ const Header = () => {
             slug: "/register",
             active: !authStatus
         },
+        {
+            name: 'Tickets',
+            slug: "/all-user-tickets",
+            active:authStatus
+        }
     ]
     
   return (
     <>
       <nav className="bg-[#0d071a] text-white shadow-lg fixed w-full z-1000">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="select-none max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Logo and Navigation */}
             <div className="flex items-center">
@@ -53,7 +58,7 @@ const Header = () => {
                       <li key={item.name} className ='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
                         <a
                         onClick={() => navigate(item.slug)}
-                        className='inline-bock px-2 py-2 duration-200'
+                        className='cursor-pointer select-none inline-bock px-2 py-2 duration-200'
                         >{item.name}</a>
                       </li>
                     ) : null
